@@ -1,0 +1,148 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <title>filler sample</title>
+    <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.js"></script>
+
+</head>
+
+<body>
+
+<script type="text/javascript"> 
+    //this.load.tileMAPTiledJSON(key, path);  in preload
+    /const map = this.make.tilemap({ key: "map", tileWidth: 32, tileHeight: 32});   in create
+    //const tileset = map.addTilesetImage("name of tile thing", "key name in preload");
+
+
+    var config = {
+        type: Phaser.AUTO,
+        width: 800,
+        height: 600,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 300 },
+                debug: false
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+
+
+    var cursors;
+    var game = new Phaser.Game(config);
+
+    function preload ()
+    {
+
+
+    }
+
+
+    function create ()
+    {
+
+
+        cursors = this.input.keyboard.createCursorKeys(); //collides go under (or whereever i guess)
+ 
+    }
+
+    function update ()
+    {
+
+    }
+
+
+</script>
+
+</body>
+</html>
+
+(was effective for letting bones shoot out):
+let bones;
+
+function create () {
+  bones = this.physics.add.group();
+
+  this.time.addEvent({
+    delay: 1000,
+    startAt: 1000,
+    callback: () => {
+      const newBone = bones.create(0, 0, 'bone');
+
+      newBone.setScale(0.9).setVelocityX(100);
+    }
+  });
+}
+
+function update () {
+  for (const bone of bones.getChildren()) {
+    // etc.
+  }
+}
+
+
+_______________________________________________________________
+/*              (just in case if you make another scene)
+var sndScene = new Phaser.Class({
+    Extends: Phaser.Scene,
+    initialize: function() {
+        Phaser.Scene.call(this, { "key": "sndScene" });
+    },
+    init: function() {},
+    preload: function() {
+        this.load.image('platforms', 'src/assets/ground.png');
+    },
+    create: function() {
+        var write = this.add.text(100, 70, "place holder", 
+            {fontSize: 40, color: "#000000", fontFamily: 'pixel'});
+    },
+    update: function() {}
+});
+*/
+
+_______________________________________________________________
+                    FOR IN THE FUTURE
+
+to send it
+this.scene.start("StartScene", {
+                    "message": "ciao bella"
+                });
+
+to receive it
+init: function(data) {
+        this.message = data.message; (this.message - to call variable)
+    },
+
+send?
+this.scene.start('sndScene', {testingStats: score});
+
+receive?
+init: function(data) {
+        this.testing = data.testingStats; (this.testing - to call variable)
+        console.log('data', data);
+    },
+
+save for other cat group:
+
+catClan = this.physics.add.group(); //probably use catClan.destroy() in the future
+        newCat = catClan.create(600, 100, 'enemy');
+        newCat.body.setGravityY(700);
+        this.physics.add.collider(catClan, plat);
+        cat = newCat;
+
+for (const kit of catClan.getChildren()) {
+            if (kit.body.velocity.y == 0){
+                kit.setVelocityY(-200);
+            }
+
+        }
+
+or look for a way for easier

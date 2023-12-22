@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <title> RAPTURE </title>
+        <script src="//cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.js"></script>
+        <script src="scene-menu.js"></script>
+        <script src="scene-one.js"></script>
+        <script src="scene-two.js"></script>
+    
+        
+
+        <style media='screen' type='text/css'>
+            @font-face {
+              font-family: pixel;
+              src: url('src/ARCADECLASSIC.TTf');
+              font-weight:normal;
+            }
+      </style>
+    
+    </head>
+    <body >
+        <div style="font-family:pixel;"> </div>
+        <div id="game"></div>
+        <script>
+
+            const phaserConfig = {
+                type: Phaser.AUTO,
+                parent: "game",
+                width: 800,
+                height: 550, 
+                physics: {
+                    default: 'arcade',
+                    arcade: {
+                        gravity: { y:0 },
+                        debug: false
+                    }   
+                },
+                backgroundColor: "#000",
+                audio: {disableWebAudio: true},
+                scene: [MenuScene, StartScene, sndScene]
+            };
+
+            const game = new Phaser.Game(phaserConfig);
+
+        </script>
+
+
+    </body>
+</html>
